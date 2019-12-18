@@ -6,17 +6,24 @@
  * @Description: In User Settings Edit
  * @FilePath: \shopify\pages\index.js
  */
-import { EmptyState, Layout, Page } from '@shopify/polaris';
-import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
+
+import  shopifyAPI from  'shopify-node-api';
 import store from 'store-js';
-import ResourceListWithProducts from '../components/ResourceList';
-import getSubscriptionUrl from '../server/getSubscriptionUrl';
-const img = 'https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg';
-
 class Index extends React.Component {
-
+  static async getInitialProps() {
+    return {
+      shop: 'https://imile-dev.myshopify.com',
+      shopify_api_key: 'dc0bcabedc2602c2fa2cee929e4dee0d',
+      shopify_shared_secret: '660330275b6db74d79eff3e06d3b1cd2', 
+      shopify_scope: ['read_products', 'write_products', 'write_shipping', 'read_shipping'],
+    }
+  }
   componentDidMount(){
-    getSubscriptionUrl();
+    let Shopify = new shopifyAPI(this.props);
+    Shopify.get('/admin/api/2019-10/carrier_services.json', function(err, data, headers){
+      console.log(data); 
+      console.log(headers);
+    });
   }
   render() {
     
@@ -24,12 +31,6 @@ class Index extends React.Component {
       <div>test</div>
     );
   }
-
-  handleSelection = (resources) => {
-    const idsFromResources = resources.selection.map((product) => product.id);
-    this.setState({ open: false });
-    store.set('ids', idsFromResources);
-  };
 }
 
 export default Index;
