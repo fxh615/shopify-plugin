@@ -19,7 +19,7 @@ class Index extends React.Component {
   }
 
   async getData(accessToken, shop){
-    const response = await fetch(`${shop}/admin/api/2019-10/carrier_services.json`, {
+    const response = await fetch(`https://${shop}/admin/api/2019-10/carrier_services.json`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
