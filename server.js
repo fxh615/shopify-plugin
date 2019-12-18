@@ -46,29 +46,29 @@ app.prepare().then(() => {
         const { shop, accessToken } = ctx.session;
         ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
 
-        const registration = await registerWebhook({
-          address: `${HOST}/webhooks/products/create`,
-          topic: 'PRODUCTS_CREATE',
-          accessToken,
-          shop,
-          apiVersion: ApiVersion.October19
-        });
+        // const registration = await registerWebhook({
+        //   address: `${HOST}/webhooks/products/create`,
+        //   topic: 'PRODUCTS_CREATE',
+        //   accessToken,
+        //   shop,
+        //   apiVersion: ApiVersion.October19
+        // });
 
-        if (registration.success) {
-          console.log('Successfully registered webhook!');
-        } else {
-          console.log('Failed to register webhook', registration.result);
-        }
+        // if (registration.success) {
+        //   console.log('Successfully registered webhook!');
+        // } else {
+        //   console.log('Failed to register webhook', registration.result);
+        // }
         await getSubscriptionUrl(ctx, accessToken, shop);
       }
     })
   );
 
-  const webhook = receiveWebhook({ secret: SHOPIFY_API_SECRET_KEY });
+  // const webhook = receiveWebhook({ secret: SHOPIFY_API_SECRET_KEY });
 
-  router.post('/webhooks/products/create', webhook, (ctx) => {
-    console.log('received webhook: ', ctx.state.webhook);
-  });
+  // router.post('/webhooks/products/create', webhook, (ctx) => {
+  //   console.log('received webhook: ', ctx.state.webhook);
+  // });
 
   server.use(graphQLProxy({ version: ApiVersion.April19 }));
 
