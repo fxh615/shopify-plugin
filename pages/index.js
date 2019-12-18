@@ -14,7 +14,7 @@ class Index extends React.Component {
 
   componentDidMount(){
     let accessToken = Cookies.get('accessToken');
-    let shop = Cookies.get('shop');
+    let shop = Cookies.get('shopOrigin');
     this.getData(accessToken, shop);
   }
 
