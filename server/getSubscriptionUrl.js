@@ -7,41 +7,41 @@
  * @FilePath: \shopify\server\getSubscriptionUrl.js
  */
 const getSubscriptionUrl = async (ctx, accessToken, shop) => {
-  const query = JSON.stringify({
-    query: `mutation {
-      appSubscriptionCreate(
-          name: "Super Duper Plan"
-          returnUrl: "${process.env.HOST}"
-          test: true
-          lineItems: [
-          {
-            plan: {
-              appUsagePricingDetails: {
-                  cappedAmount: { amount: 10, currencyCode: USD }
-                  terms: "$1 for 1000 emails"
-              }
-            }
-          }
-          {
-            plan: {
-              appRecurringPricingDetails: {
-                  price: { amount: 10, currencyCode: USD }
-              }
-            }
-          }
-          ]
-        ) {
-            userErrors {
-              field
-              message
-            }
-            confirmationUrl
-            appSubscription {
-              id
-            }
-        }
-    }`
-  });
+  // const query = JSON.stringify({
+  //   query: `mutation {
+  //     appSubscriptionCreate(
+  //         name: "Super Duper Plan"
+  //         returnUrl: "${process.env.HOST}"
+  //         test: true
+  //         lineItems: [
+  //         {
+  //           plan: {
+  //             appUsagePricingDetails: {
+  //                 cappedAmount: { amount: 10, currencyCode: USD }
+  //                 terms: "$1 for 1000 emails"
+  //             }
+  //           }
+  //         }
+  //         {
+  //           plan: {
+  //             appRecurringPricingDetails: {
+  //                 price: { amount: 10, currencyCode: USD }
+  //             }
+  //           }
+  //         }
+  //         ]
+  //       ) {
+  //           userErrors {
+  //             field
+  //             message
+  //           }
+  //           confirmationUrl
+  //           appSubscription {
+  //             id
+  //           }
+  //       }
+  //   }`
+  // });
 
   // const response = await fetch(`https://${shop}/admin/api/2019-07/graphql.json`, {
   //   method: 'POST',
@@ -62,8 +62,8 @@ const getSubscriptionUrl = async (ctx, accessToken, shop) => {
   
   const responseJson = await response.json();
   console.log('responseJson=================>>>>>>', responseJson)
-  const confirmationUrl = responseJson.data.appSubscriptionCreate.confirmationUrl
-  return ctx.redirect(confirmationUrl)
+  // const confirmationUrl = responseJson.data.appSubscriptionCreate.confirmationUrl
+  // return ctx.redirect(confirmationUrl)
 };
 
 module.exports = getSubscriptionUrl;

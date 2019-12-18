@@ -1,44 +1,27 @@
+/*
+ * @Author: your name
+ * @Date: 2019-12-12 10:32:01
+ * @LastEditTime : 2019-12-18 14:17:24
+ * @LastEditors  : Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \shopify\pages\index.js
+ */
 import { EmptyState, Layout, Page } from '@shopify/polaris';
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import store from 'store-js';
 import ResourceListWithProducts from '../components/ResourceList';
-
+import getSubscriptionUrl from '../server/getSubscriptionUrl';
 const img = 'https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg';
 
 class Index extends React.Component {
   state = { open: false };
+  componentDidMount(){
+    getSubscriptionUrl();
+  }
   render() {
     const emptyState = !store.get('ids');
     return (
-      <Page>
-        <TitleBar primaryAction={{
-          content: 'Select products',
-          onAction: () => this.setState({ open: true }),
-        }} />
-        <ResourcePicker
-          resourceType="Product"
-          showVariants={false}
-          open={this.state.open}
-          onSelection={(resources) => this.handleSelection(resources)}
-          onCancel={() => this.setState({ open: false })}
-        />
-        {emptyState ? (
-          <Layout>
-            <EmptyState
-              heading="Discount your products temporarily"
-              action={{
-                content: 'Select products',
-                onAction: () => this.setState({ open: true }),
-              }}
-              image={img}
-            >
-              <p>Select products to change their price temporarily.</p>
-            </EmptyState>
-          </Layout>
-        ) : (
-            <ResourceListWithProducts />
-          )}
-      </Page>
+      <div>test</div>
     );
   }
 
