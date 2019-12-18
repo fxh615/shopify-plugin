@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2019-12-12 10:32:02
+ * @LastEditTime : 2019-12-18 14:06:00
+ * @LastEditors  : Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \shopify\server\getSubscriptionUrl.js
+ */
 const getSubscriptionUrl = async (ctx, accessToken, shop) => {
   const query = JSON.stringify({
     query: `mutation {
@@ -35,16 +43,25 @@ const getSubscriptionUrl = async (ctx, accessToken, shop) => {
     }`
   });
 
-  const response = await fetch(`https://${shop}/admin/api/2019-07/graphql.json`, {
-    method: 'POST',
+  // const response = await fetch(`https://${shop}/admin/api/2019-07/graphql.json`, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     "X-Shopify-Access-Token": accessToken,
+  //   },
+  //   body: query
+  // })
+  const response = await fetch(`https://${shop}/admin/api/2019-10/carrier_services.json`, {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       "X-Shopify-Access-Token": accessToken,
-    },
-    body: query
+    }
   })
 
+  
   const responseJson = await response.json();
+  console.log('responseJson=================>>>>>>', responseJson)
   const confirmationUrl = responseJson.data.appSubscriptionCreate.confirmationUrl
   return ctx.redirect(confirmationUrl)
 };
