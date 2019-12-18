@@ -14,9 +14,9 @@ class Index extends React.Component {
   
 
   componentDidMount(){
-    
+
     var Shopify = new shopifyAPI({
-      shop: 'MYSHOP', // MYSHOP.myshopify.com
+      shop: 'imile-dev.myshopify.com', // MYSHOP.myshopify.com
       shopify_api_key: 'dc0bcabedc2602c2fa2cee929e4dee0d', // Your API key
       shopify_shared_secret: '660330275b6db74d79eff3e06d3b1cd2', // Your Shared Secret
       shopify_scope: 'read_shipping'
