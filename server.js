@@ -42,7 +42,7 @@ app.prepare().then(() => {
       apiKey: SHOPIFY_API_KEY,
       secret: SHOPIFY_API_SECRET_KEY,
       scopes: ['read_products', 'write_products', 'write_shipping', 'read_shipping'],
-        afterAuth(ctx) {
+        async afterAuth(ctx) {
           const { shop, accessToken } = ctx.session;
           ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
           ctx.cookies.set("accessToken", accessToken, { httpOnly: false });
@@ -61,7 +61,7 @@ app.prepare().then(() => {
           // } else {
           //   console.log('Failed to register webhook', registration.result);
           // }
-          //await getSubscriptionUrl(ctx, accessToken, shop);
+          await getSubscriptionUrl(ctx, accessToken, shop);
       }
     })
   );
