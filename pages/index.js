@@ -15,6 +15,10 @@ class Index extends React.Component {
   componentDidMount(){
     let accessToken = Cookies.get('accessToken');
     let shop = Cookies.get('shop');
+    this.getData(accessToken, shop);
+  }
+
+  async getData(accessToken, shop){
     const response = await fetch(`${shop}/admin/api/2019-10/carrier_services.json`, {
       method: 'GET',
       headers: {
