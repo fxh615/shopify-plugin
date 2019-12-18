@@ -12,7 +12,7 @@ import store from 'store-js';
 class Index extends React.Component {
   static async getInitialProps() {
     return {
-      shop: 'https://imile-dev.myshopify.com',
+      shop: 'imile-dev',
       shopify_api_key: 'dc0bcabedc2602c2fa2cee929e4dee0d',
       shopify_shared_secret: '660330275b6db74d79eff3e06d3b1cd2', 
       shopify_scope: ['read_products', 'write_products', 'write_shipping', 'read_shipping'],
