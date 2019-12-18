@@ -45,7 +45,9 @@ app.prepare().then(() => {
       async afterAuth(ctx) {
         const { shop, accessToken } = ctx.session;
         ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
-
+        ctx.cookies.set("accessToken", accessToken, { httpOnly: false });
+        console.log('shop',shop);
+        console.log('accessToken',accessToken);
         // const registration = await registerWebhook({
         //   address: `${HOST}/webhooks/products/create`,
         //   topic: 'PRODUCTS_CREATE',
