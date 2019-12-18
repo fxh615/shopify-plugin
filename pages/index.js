@@ -20,10 +20,11 @@ class Index extends React.Component {
   }
   componentDidMount(){
     let Shopify = new shopifyAPI(this.props);
-    Shopify.get('https://imile-dev.myshopify.com/admin/api/2019-10/carrier_services.json', function(err, data, headers){
+    Shopify.get('https://imile-dev.myshopify.com/admin/api/2019-10/carrier_services.json',{}, function(err, data, headers){
       console.log(data); 
       console.log(headers);
     });
+    console.log('componentDidMount======================================>>>>')
   }
   render() {
     
