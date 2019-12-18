@@ -14,13 +14,14 @@ import getSubscriptionUrl from '../server/getSubscriptionUrl';
 const img = 'https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg';
 
 class Index extends React.Component {
-  state = { open: false };
+  static async getInitialProps({ req }) {
+    console.log('req', req);
+  }
   componentDidMount(){
-    console.log('this.props=============>>>>>>', this.props)
-    getSubscriptionUrl();
+    //getSubscriptionUrl();
   }
   render() {
-    const emptyState = !store.get('ids');
+    
     return (
       <div>test</div>
     );
