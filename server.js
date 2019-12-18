@@ -42,26 +42,26 @@ app.prepare().then(() => {
       apiKey: SHOPIFY_API_KEY,
       secret: SHOPIFY_API_SECRET_KEY,
       scopes: ['read_products', 'write_products', 'write_shipping', 'read_shipping'],
-      async afterAuth(ctx) {
-        const { shop, accessToken } = ctx.session;
-        ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
-        ctx.cookies.set("accessToken", accessToken, { httpOnly: false });
-        console.log('shop',shop);
-        console.log('accessToken',accessToken);
-        // const registration = await registerWebhook({
-        //   address: `${HOST}/webhooks/products/create`,
-        //   topic: 'PRODUCTS_CREATE',
-        //   accessToken,
-        //   shop,
-        //   apiVersion: ApiVersion.October19
-        // });
+        afterAuth(ctx) {
+          const { shop, accessToken } = ctx.session;
+          ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
+          ctx.cookies.set("accessToken", accessToken, { httpOnly: false });
+          console.log('shop',shop);
+          console.log('accessToken',accessToken);
+          // const registration = await registerWebhook({
+          //   address: `${HOST}/webhooks/products/create`,
+          //   topic: 'PRODUCTS_CREATE',
+          //   accessToken,
+          //   shop,
+          //   apiVersion: ApiVersion.October19
+          // });
 
-        // if (registration.success) {
-        //   console.log('Successfully registered webhook!');
-        // } else {
-        //   console.log('Failed to register webhook', registration.result);
-        // }
-        //await getSubscriptionUrl(ctx, accessToken, shop);
+          // if (registration.success) {
+          //   console.log('Successfully registered webhook!');
+          // } else {
+          //   console.log('Failed to register webhook', registration.result);
+          // }
+          //await getSubscriptionUrl(ctx, accessToken, shop);
       }
     })
   );
