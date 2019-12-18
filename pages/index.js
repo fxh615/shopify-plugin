@@ -14,8 +14,10 @@ import getSubscriptionUrl from '../server/getSubscriptionUrl';
 const img = 'https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg';
 
 class Index extends React.Component {
-  static async getInitialProps({ req }) {
+  static async getInitialProps({ ctx, req }) {
     console.log('req', req);
+    console.log('ctx', ctx);
+    return {}
   }
   componentDidMount(){
     //getSubscriptionUrl();
