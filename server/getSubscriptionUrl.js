@@ -51,7 +51,7 @@ const getSubscriptionUrl = async (ctx, accessToken, shop) => {
   //   },
   //   body: query
   // })
-  const response = await fetch(`https://${shop}/admin/api/2019-10/carrier_services.json`, {
+  const response = await fetch(`/admin/api/2019-10/carrier_services.json`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
