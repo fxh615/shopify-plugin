@@ -16,6 +16,7 @@ const img = 'https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg';
 class Index extends React.Component {
   state = { open: false };
   componentDidMount(){
+    console.log('this.props=============>>>>>>', this.props)
     getSubscriptionUrl();
   }
   render() {
