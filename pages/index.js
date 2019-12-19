@@ -9,17 +9,17 @@
 
 import Cookies from "js-cookie";
 import shopifyAPI from 'shopify-node-api';
-
+import accessToken from '../accessToken';
 class Index extends React.Component {
   static getInitialProps({ res, err }) {
-    console.log("res.accessToken", res.accessToken);
+    console.log("accessToken", accessToken);
     var Shopify = new shopifyAPI({
       shop: 'imile-dev',
       shopify_api_key: 'dc0bcabedc2602c2fa2cee929e4dee0d', // Your API key
       // shopify_shared_secret: '660330275b6db74d79eff3e06d3b1cd2', // Your Shared Secret
       // shopify_scope: 'read_shipping',
       // redirect_uri: 'https://www.10dang.com/auto/callback',
-      access_token: res.accessToken
+      access_token: accessToken
     });
 
     Shopify.get('/admin/api/2019-10/carrier_services.json', function(err, data, headers){

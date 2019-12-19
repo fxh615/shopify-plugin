@@ -19,6 +19,7 @@ const { ApiVersion } = require('@shopify/koa-shopify-graphql-proxy');
 const Router = require('koa-router');
 const { receiveWebhook, registerWebhook } = require('@shopify/koa-shopify-webhooks');
 const getSubscriptionUrl = require('./server/getSubscriptionUrl');
+const fs = require('fs');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -46,7 +47,7 @@ app.prepare().then(() => {
           const { shop, accessToken } = ctx.session;
           ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
           ctx.cookies.set("accessToken", accessToken, { httpOnly: false });
-          ctx.res.accessToken = accessToken;
+          //ctx.res.accessToken = accessToken;
           console.log('shop',shop);
           console.log('accessToken',accessToken);
           // const registration = await registerWebhook({
@@ -56,7 +57,12 @@ app.prepare().then(() => {
           //   shop,
           //   apiVersion: ApiVersion.October19
           // });
-
+          fs.open('accessToken.js', 'w', function(err, fd) {
+            const buf = `export default "${accessToken}";`;
+            // fs.write(fd, buf, 0, buf.length, 0, function(err, written, buffer) {});
+            fs.write(fd, buf, 0, 'utf-8', function(err, written, buffer) {});
+          });
+        
           // if (registration.success) {
           //   console.log('Successfully registered webhook!');
           // } else {
