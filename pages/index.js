@@ -13,6 +13,7 @@ import accessToken from '../accessToken';
 class Index extends React.Component {
   static getInitialProps({ res, err }) {
     console.log("accessToken", accessToken);
+    console.log("accessToken res", res.accessToken);
     var Shopify = new shopifyAPI({
       shop: 'imile-dev',
       shopify_api_key: 'dc0bcabedc2602c2fa2cee929e4dee0d', // Your API key
