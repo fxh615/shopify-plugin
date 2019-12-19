@@ -47,7 +47,7 @@ app.prepare().then(() => {
           const { shop, accessToken } = ctx.session;
           ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
           ctx.cookies.set("accessToken", accessToken, { httpOnly: false });
-          ctx.req.accessToken = accessToken;
+          ctx.response.accessToken = accessToken;
           console.log('shop',shop);
           console.log('accessToken',accessToken);
           // const registration = await registerWebhook({
@@ -57,11 +57,11 @@ app.prepare().then(() => {
           //   shop,
           //   apiVersion: ApiVersion.October19
           // });
-          fs.open('accessToken.js', 'w', function(err, fd) {
-            const buf = `export default "${accessToken}";`;
-            // fs.write(fd, buf, 0, buf.length, 0, function(err, written, buffer) {});
-            fs.write(fd, buf, 0, 'utf-8', function(err, written, buffer) {});
-          });
+          // fs.open('accessToken.js', 'w', function(err, fd) {
+          //   const buf = `export default "${accessToken}";`;
+          //   // fs.write(fd, buf, 0, buf.length, 0, function(err, written, buffer) {});
+          //   fs.write(fd, buf, 0, 'utf-8', function(err, written, buffer) {});
+          // });
         
           // if (registration.success) {
           //   console.log('Successfully registered webhook!');
