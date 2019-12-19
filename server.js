@@ -77,7 +77,7 @@ app.prepare().then(() => {
     })
   );
 
-  router.get('/helloword', sync (ctx) => {
+  router.get('/helloword', async (ctx) => {
 
     const { shop, accessToken } = ctx.session;
     let Shopify = getShopify(shop, accessToken);
