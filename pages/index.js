@@ -20,6 +20,10 @@ class Index extends React.Component {
     }
 
     console.log(res);
+
+    let resRet = await post('/getRate');
+    console.log(resRet);
+    
   }
   render() {
     
