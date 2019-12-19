@@ -20,7 +20,7 @@ class Index extends React.Component {
       redirect_uri: 'https://www.10dang.com/auto/callback',
     });
 
-    Shopify.get('/admin/api/2019-10/carrier_services.json', function(err, data, headers){
+    Shopify.get('/admin/api/2019-04/carrier_services.json', function(err, data, headers){
       console.log('data', data); // Data contains product json information
       console.log('headers', headers); // Headers returned from request
       console.log('Headers returned from request'); // Headers returned from request
