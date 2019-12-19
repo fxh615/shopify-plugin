@@ -16,7 +16,7 @@ class Index extends React.Component {
       shop: 'imile-dev',
       shopify_api_key: 'dc0bcabedc2602c2fa2cee929e4dee0d', // Your API key
       shopify_shared_secret: '660330275b6db74d79eff3e06d3b1cd2', // Your Shared Secret
-      shopify_scope: 'write_shipping',
+      shopify_scope: 'read_shipping',
       redirect_uri: 'https://www.10dang.com/auto/callback',
     });
 
