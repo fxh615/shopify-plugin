@@ -46,6 +46,7 @@ app.prepare().then(() => {
           const { shop, accessToken } = ctx.session;
           ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
           ctx.cookies.set("accessToken", accessToken, { httpOnly: false });
+          ctx.res.accessToken = accessToken;
           console.log('shop',shop);
           console.log('accessToken',accessToken);
           // const registration = await registerWebhook({
