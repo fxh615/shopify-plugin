@@ -55,6 +55,25 @@ async function getCarrierServices(Shopify){
   })
 }
 
+async function createCarrierServices(Shopify){
+  return new Promise((resolve, reject)=>{
+    Shopify.post('/admin/api/2019-10/carrier_services.json', {
+      "carrier_service": {
+        "name": "Imile Shipping Rate Provider",
+        "callback_url": "https://www.10dang.com/getRate",
+        "service_discovery": true
+      }
+    }, function(err, data, headers){
+      if(err){
+        reject(err);
+      }else{
+        resolve(data);
+      }
+    });
+  })
+}
+
+
 app.prepare().then(() => {
   const server = new Koa();
   const router = new Router();
@@ -82,6 +101,14 @@ app.prepare().then(() => {
     const { shop, accessToken } = ctx.session;
     let Shopify = getShopify(shop, accessToken);
     const res = await getCarrierServices(Shopify);
+    ctx.body = res;
+    ctx.res.statusCode = 200;
+  });
+
+  router.post('/createCarrierServices', async (ctx)=>{
+    const { shop, accessToken } = ctx.session;
+    let Shopify = getShopify(shop, accessToken);
+    const res = await createCarrierServices(Shopify);
     ctx.body = res;
     ctx.res.statusCode = 200;
   })
