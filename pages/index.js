@@ -8,10 +8,14 @@
  */
 import {fetch,post} from '../util/http';
 class Index extends React.Component {
-	state = {
-    "serviceName":'',
-    "active": true
-	}
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      "serviceName":'',
+      "active": true
+    }
+  }
   static async getInitialProps({ req }) {
     return {}
   }
@@ -39,7 +43,7 @@ class Index extends React.Component {
   render() {
     
     return (
-      <div style="padding:20px; border:1px #ccc solid">{{this.state.serviceName}}</div>
+      <div style="padding:20px; border:1px #ccc solid">{this.state.serviceName}</div>
     );
   }
 }
