@@ -111,6 +111,21 @@ app.prepare().then(() => {
     const res = await createCarrierServices(Shopify);
     ctx.body = res;
     ctx.res.statusCode = 200;
+  });
+
+  router.post('/getRate', ctx=>{
+    let arr = [
+      {
+        "service_name": "imile sv0001",
+        "description": "description",
+        "service_code": "43543254325432543",
+        "currency": "USD",
+        "total_price": '1344'
+      }
+    ];
+
+    ctx.body = arr;
+    ctx.res.statusCode = 200;
   })
 
 
