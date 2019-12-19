@@ -61,9 +61,13 @@ app.prepare().then(() => {
           // } else {
           //   console.log('Failed to register webhook', registration.result);
           // }
-          await getSubscriptionUrl(ctx, accessToken, shop);
+          //await getSubscriptionUrl(ctx, accessToken, shop);
+          return ctx.redirect('/')
       }
     })
+
+
+    
   );
 
   // const webhook = receiveWebhook({ secret: SHOPIFY_API_SECRET_KEY });
