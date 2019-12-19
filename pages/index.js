@@ -8,8 +8,12 @@
  */
 import {fetch,post} from '../util/http';
 class Index extends React.Component {
+	state = {
+    "serviceName":'',
+    "active": true
+	}
   static async getInitialProps({ req }) {
-    return {"serviceName":'', "active": true}
+    return {}
   }
   componentDidMount(){
     this.getDate();
@@ -22,7 +26,11 @@ class Index extends React.Component {
       res = await post('/createCarrierServices');
     }
 
+    let sn = res.carrier_services[0].name;
     console.log(res);
+    this.setState({
+      serviceName:sn
+    });
 
     let resRet = await post('/getRate');
     console.log(resRet);
@@ -31,7 +39,7 @@ class Index extends React.Component {
   render() {
     
     return (
-      <div>test</div>
+      <div style="padding:20px; border:1px #ccc solid">{this.state.serviceName}</div>
     );
   }
 }
