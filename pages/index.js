@@ -6,7 +6,7 @@
  * @Description: In User Settings Edit
  * @FilePath: \shopify\pages\index.js
  */
-import {fetch} from '../util/http';
+import {fetch,post} from '../util/http';
 class Index extends React.Component {
 
   componentDidMount(){
@@ -16,7 +16,7 @@ class Index extends React.Component {
   async getDate(){
     let res = await  fetch('/helloword');
     if(res.carrier_services.length === 0){
-      res = await fetch('/createCarrierServices');
+      res = await post('/createCarrierServices');
     }
 
     console.log(res);
