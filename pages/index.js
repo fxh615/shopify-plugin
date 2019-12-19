@@ -30,11 +30,11 @@ class Index extends React.Component {
       res = await post('/createCarrierServices');
     }
 
-    let sn = res.carrier_services[0].name;
+    //let sn = res.carrier_services[0].name;
     console.log(res);
-    this.setState({
-      serviceName:sn
-    });
+    // this.setState({
+    //   serviceName:sn
+    // });
 
     let resRet = await post('/getRate');
     console.log(resRet);
