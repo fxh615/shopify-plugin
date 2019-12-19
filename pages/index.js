@@ -12,6 +12,12 @@ import shopifyAPI from 'shopify-node-api';
 
 class Index extends React.Component {
   static getInitialProps({ res, err }) {
+
+
+    return {}
+  }
+
+  componentDidMount(){
     console.log("Cookies.get('accessToken')", Cookies.get('accessToken'));
     var Shopify = new shopifyAPI({
       shop: 'imile-dev',
@@ -27,12 +33,6 @@ class Index extends React.Component {
       console.log('headers', headers); // Headers returned from request
       console.log('Headers returned from request'); // Headers returned from request
     });
-
-    return {}
-  }
-
-  componentDidMount(){
-
 
   }
   render() {
