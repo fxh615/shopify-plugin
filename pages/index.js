@@ -8,9 +8,12 @@
  */
 import {fetch,post} from '../util/http';
 class Index extends React.Component {
-
+  static async getInitialProps({ req }) {
+    return {"serviceName":'', "active": true}
+  }
   componentDidMount(){
     this.getDate();
+    console.log(this.state);
   }
 
   async getDate(){
@@ -23,7 +26,7 @@ class Index extends React.Component {
 
     let resRet = await post('/getRate');
     console.log(resRet);
-    
+
   }
   render() {
     
