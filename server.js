@@ -43,6 +43,18 @@ function getShopify(shop, accessToken){
   return Shopify;
 }
 
+async function getCarrierServices(Shopify){
+  return new Promise((resolve, reject)=>{
+    Shopify.get('/admin/api/2019-10/carrier_services.json', function(err, data, headers){
+      if(err){
+        reject(err);
+      }else{
+        resolve(data);
+      }
+    });
+  })
+}
+
 app.prepare().then(() => {
   const server = new Koa();
   const router = new Router();
@@ -65,20 +77,13 @@ app.prepare().then(() => {
     })
   );
 
-  router.get('/helloword', ctx => {
+  router.get('/helloword', sync (ctx) => {
 
     const { shop, accessToken } = ctx.session;
     let Shopify = getShopify(shop, accessToken);
-
-    return new Promise((resolve, reject)=>{
-      Shopify.get('/admin/api/2019-10/carrier_services.json', function(err, data, headers){
-        if(err){
-          reject(err);
-        }else{
-          resolve(data);
-        }
-      });
-    })
+    const res = await getCarrierServices(Shopify);
+    ctx.body = res;
+    ctx.res.statusCode = 200;
   })
 
 
