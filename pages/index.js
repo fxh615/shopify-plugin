@@ -10,13 +10,16 @@ import {fetch} from '../util/http';
 class Index extends React.Component {
 
   componentDidMount(){
+    this.getDate();
+  }
+
+  async getDate(){
     let res = await  fetch('/helloword');
     if(res.carrier_services.length === 0){
       res = await fetch('/createCarrierServices');
     }
 
     console.log(res);
-    
   }
   render() {
     
