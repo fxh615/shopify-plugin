@@ -6,33 +6,13 @@
  * @Description: In User Settings Edit
  * @FilePath: \shopify\pages\index.js
  */
-
-import Cookies from "js-cookie";
-import shopifyAPI from 'shopify-node-api';
+import {fetch} from '../util/http';
 class Index extends React.Component {
-  static getInitialProps({ res, err }) {
-    console.log("accessToken res", res);
-    var Shopify = new shopifyAPI({
-      shop: 'imile-dev',
-      shopify_api_key: 'dc0bcabedc2602c2fa2cee929e4dee0d', // Your API key
-      // shopify_shared_secret: '660330275b6db74d79eff3e06d3b1cd2', // Your Shared Secret
-      // shopify_scope: 'read_shipping',
-      // redirect_uri: 'https://www.10dang.com/auto/callback',
-      access_token: res.accessToken
-    });
-
-    Shopify.get('/admin/api/2019-10/carrier_services.json', function(err, data, headers){
-      console.log('data', data); // Data contains product json information
-      console.log('headers', headers); // Headers returned from request
-      console.log('Headers returned from request'); // Headers returned from request
-    });
-
-    return {}
-  }
 
   componentDidMount(){
-
-
+    fetch('/helloword').then(res=>{
+      console.log(res);
+    })
   }
   render() {
     
