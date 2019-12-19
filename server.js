@@ -14,13 +14,14 @@ const next = require('next');
 const { default: createShopifyAuth } = require('@shopify/koa-shopify-auth');
 const { verifyRequest } = require('@shopify/koa-shopify-auth');
 const session = require('koa-session');
+const bodyParser = require('koa-bodyparser')
 const { default: graphQLProxy } = require('@shopify/koa-shopify-graphql-proxy');
 const { ApiVersion } = require('@shopify/koa-shopify-graphql-proxy');
 const Router = require('koa-router');
 const { receiveWebhook, registerWebhook } = require('@shopify/koa-shopify-webhooks');
 const getSubscriptionUrl = require('./server/getSubscriptionUrl');
 const fs = require('fs');
-
+import shopifyAPI from 'shopify-node-api';
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -32,9 +33,20 @@ const {
   HOST,
 } = process.env;
 
+
+function getShopify(shop, accessToken){
+  let Shopify = new shopifyAPI({
+    shop: shop.split('.')[0] || 'imile-dev',
+    shopify_api_key: SHOPIFY_API_KEY, // Your API key
+    access_token: accessToken
+  });
+  return Shopify;
+}
+
 app.prepare().then(() => {
   const server = new Koa();
   const router = new Router();
+  server.use(bodyParser());
   server.use(session(server));
   server.keys = [SHOPIFY_API_SECRET_KEY];
 
@@ -46,42 +58,29 @@ app.prepare().then(() => {
         async afterAuth(ctx) {
           const { shop, accessToken } = ctx.session;
           ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
-          ctx.cookies.set("accessToken", accessToken, { httpOnly: false });
-          ctx.response.accessToken = accessToken;
           console.log('shop',shop);
           console.log('accessToken',accessToken);
-          // const registration = await registerWebhook({
-          //   address: `${HOST}/webhooks/products/create`,
-          //   topic: 'PRODUCTS_CREATE',
-          //   accessToken,
-          //   shop,
-          //   apiVersion: ApiVersion.October19
-          // });
-          // fs.open('accessToken.js', 'w', function(err, fd) {
-          //   const buf = `export default "${accessToken}";`;
-          //   // fs.write(fd, buf, 0, buf.length, 0, function(err, written, buffer) {});
-          //   fs.write(fd, buf, 0, 'utf-8', function(err, written, buffer) {});
-          // });
-        
-          // if (registration.success) {
-          //   console.log('Successfully registered webhook!');
-          // } else {
-          //   console.log('Failed to register webhook', registration.result);
-          // }
-          //await getSubscriptionUrl(ctx, accessToken, shop);
           return ctx.redirect('/')
       }
     })
-
-
-    
   );
 
-  // const webhook = receiveWebhook({ secret: SHOPIFY_API_SECRET_KEY });
+  router.get('/helloword', ctx => {
 
-  // router.post('/webhooks/products/create', webhook, (ctx) => {
-  //   console.log('received webhook: ', ctx.state.webhook);
-  // });
+    const { shop, accessToken } = ctx.session;
+    let Shopify = getShopify(shop, accessToken);
+
+    return new Promise((resolve, reject)=>{
+      Shopify.get('/admin/api/2019-10/carrier_services.json', function(err, data, headers){
+        if(err){
+          reject(err);
+        }else{
+          resolve(data);
+        }
+      });
+    })
+  })
+
 
   server.use(graphQLProxy({ version: ApiVersion.April19 }));
 
